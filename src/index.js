@@ -1,13 +1,12 @@
 import { refs } from './refs.js';
-// import { onSearch } from './on-search.js';
-// import Notiflix from 'notiflix';
+import Notiflix from 'notiflix';
 // import { LoadMoreButton } from './loadMore';
 import { galeryTmpl } from './galeruTmpl.js';
 import { ImagesAPIService } from './api-service.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 refs.searchForm.addEventListener('submit', onSearch);
-refs.button.addEventListener('click', onLoadMore);
+// refs.button.addEventListener('click', onLoadMore);
 
 const imagesAPIService = new ImagesAPIService();
 // const LoadMoreButton = new onLoadMore({
@@ -24,11 +23,11 @@ function onSearch(event) {
   event.preventDefault();
 
   imagesAPIService.query = event.currentTarget.searchQuery.value.trim();
-  //   if (!imagesAPIService.query) {
-  //     return Notify.failure(
-  //       `Sorry, there are no images matching your search query. Please try again.`
-  //     );
-  //   }
+  if (imagesAPIService.query === '') {
+    return Notiflix.Notify.failure(
+      `Sorry, there are no images matching your search query. Please try again.`
+    );
+  }
   imagesAPIService.resetPage();
   imagesAPIService.fetchImages().then(foto => {
     clearGaleryContainer(), galeryMarkup(foto);

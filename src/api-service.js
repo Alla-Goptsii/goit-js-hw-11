@@ -10,7 +10,6 @@ class ImagesAPIService {
     this.page = 1;
     // this.per_page = 10;
   }
-  // this.searchQuery = imagesAPIService.query;
 
   async fetchImages() {
     console.log(this);
@@ -19,7 +18,7 @@ class ImagesAPIService {
       const url = `${BASE_URL}?key=${API_KEY}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true;`;
       //   const response = await axios.get(url);
       return fetch(url)
-        .then(r => r.json())
+        .then(response => response.json())
         .then(data => {
           this.incrementPage();
 
@@ -31,8 +30,8 @@ class ImagesAPIService {
       error;
     }
 
-    // get this.query() {
-    // return searchQuery;
+    // get query() {
+    // return this.searchQuery;
     //   }
 
     //   set query(newQuery) {
