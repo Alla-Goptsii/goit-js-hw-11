@@ -1,24 +1,42 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
-// const PARAMS =
-//   '?key=${API_KEY}&q=${this.searchFoto}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true';
+const API_KEY = '29926103-ef277a018e47056ded665dd02';
+const BASE_URL = 'https://pixabay.com/api/';
 
-export default class ImagesAPIService {
+class ImagesAPIService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.per_page = 10;
+    // this.per_page = 10;
   }
+  // this.searchQuery = imagesAPIService.query;
 
-  fetchImages(searchQuery) {
-    const API_KEY = '29926103-ef277a018e47056ded665dd02';
-    const BASE_URL = 'https://pixabay.com/api/';
-    fetch(
-      `${BASE_URL}?key=${API_KEY}&q=${this.searchQuery}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true;`
-    )
-      .then(r => r.json())
-      .then(console.log('что-то'));
+  async fetchImages() {
+    console.log(this);
+
+    try {
+      const url = `${BASE_URL}?key=${API_KEY}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true;`;
+      //   const response = await axios.get(url);
+      return fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          this.incrementPage();
+
+          return data;
+          //   return data.foto;
+        });
+      //   return response;
+    } catch (error) {
+      error;
+    }
+
+    // get this.query() {
+    // return searchQuery;
     //   }
+
+    //   set query(newQuery) {
+    //     this.searchQuery = newQuery;
     //   }
 
     //   async fetchImages() {
@@ -30,6 +48,13 @@ export default class ImagesAPIService {
     //       console.log(err);
     //     }
   }
+
+  incrementPage() {
+    this.page += 1;
+  }
+  resetPage() {
+    this.page = 1;
+  }
 }
 
-// export { ImagesAPIService };
+export { ImagesAPIService };

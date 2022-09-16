@@ -1,29 +1,53 @@
 import { refs } from './refs.js';
 // import { onSearch } from './on-search.js';
-import Notiflix from 'notiflix';
-import ImagesAPIService from './api-service.js';
+// import Notiflix from 'notiflix';
+// import { LoadMoreButton } from './loadMore';
+import { galeryTmpl } from './galeruTmpl.js';
+import { ImagesAPIService } from './api-service.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
-// console.log(refs);
 refs.searchForm.addEventListener('submit', onSearch);
-refs.button.addEventListener('click', onLoad);
+refs.button.addEventListener('click', onLoadMore);
 
 const imagesAPIService = new ImagesAPIService();
+// const LoadMoreButton = new onLoadMore({
+//   selector: '.load-more',
+//   hidden: true,
+// });
+// const lightbox = new SimpleLightbox('.gallery a', {
+//   captionsData: 'alt',
+//   captionDelay: 250,
+// });
 
+// console.log(imagesAPIService);
 function onSearch(event) {
   event.preventDefault();
 
-  const searchQuery = event.currentTarget.searchQuery.value.trim();
-  console.log(searchQuery);
-
-  imagesAPIService.fetchImages(searchQuery);
+  imagesAPIService.query = event.currentTarget.searchQuery.value.trim();
+  //   if (!imagesAPIService.query) {
+  //     return Notify.failure(
+  //       `Sorry, there are no images matching your search query. Please try again.`
+  //     );
+  //   }
+  imagesAPIService.resetPage();
+  imagesAPIService.fetchImages().then(foto => {
+    clearGaleryContainer(), galeryMarkup(foto);
+  });
 }
 
-function onInput() {
-  console.log;
+function onLoadMore() {
+  imagesAPIService.fetchImages().then(galeryMarkup);
+  console.log('click');
+
+  //   jump(900);
 }
 
-function onLoad() {}
+function galeryMarkup(foto) {
+  refs.cotainer.insertAdjacentHTML('beforeend', galeryTmpl(foto));
+}
+function clearGaleryContainer() {
+  refs.cotainer.innerHTML = '';
+}
 //   const options = {
 //     headers: {
 //       Authorization: '29926103-ef277a018e47056ded665dd02',
