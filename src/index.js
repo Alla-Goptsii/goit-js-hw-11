@@ -1,22 +1,24 @@
 import { refs } from './refs.js';
 import Notiflix from 'notiflix';
-// import { LoadMoreButton } from './loadMore';
+import { LoadMoreBtn } from './loadMore';
 import { galeryTmpl } from './galeruTmpl.js';
 import { ImagesAPIService } from './api-service.js';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 refs.searchForm.addEventListener('submit', onSearch);
-// refs.button.addEventListener('click', onLoadMore);
 
 const imagesAPIService = new ImagesAPIService();
-// const LoadMoreButton = new onLoadMore({
-//   selector: '.load-more',
-//   hidden: true,
-// });
-// const lightbox = new SimpleLightbox('.gallery a', {
-//   captionsData: 'alt',
-//   captionDelay: 250,
-// });
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '.load-more',
+  hidden: true,
+});
+
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+});
+console.log(loadMoreBtn);
+loadMoreBtn.refs.button.addEventListener('click', fetchImg);
 
 // console.log(imagesAPIService);
 function onSearch(event) {
@@ -28,17 +30,20 @@ function onSearch(event) {
       `Sorry, there are no images matching your search query. Please try again.`
     );
   }
+  loadMoreBtn.show();
   imagesAPIService.resetPage();
-  imagesAPIService.fetchImages().then(foto => {
-    clearGaleryContainer(), galeryMarkup(foto);
-  });
+  clearGaleryContainer();
+  fetchImg();
 }
 
-function onLoadMore() {
-  imagesAPIService.fetchImages().then(galeryMarkup);
-  console.log('click');
-
-  //   jump(900);
+function fetchImg() {
+  loadMoreBtn.disabled();
+  imagesAPIService.fetchImages().then(foto => {
+    galeryMarkup(foto);
+    loadMoreBtn.enable();
+    // debugger;
+    notificationTotalHits(foto);
+  });
 }
 
 function galeryMarkup(foto) {
@@ -47,32 +52,28 @@ function galeryMarkup(foto) {
 function clearGaleryContainer() {
   refs.cotainer.innerHTML = '';
 }
-//   const options = {
-//     headers: {
-//       Authorization: '29926103-ef277a018e47056ded665dd02',
-//       q: поиск,
-//       image_type: photo,
-//       orientation: horizontal,
-//       safesearch: true,
-//     },
-//   };
 
-// const PARAMS =
-//   '?key=${API_KEY}&q=${this.searchFoto}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true';
-
-// class ImagesAPIContainer {
-//   constructor() {
-//     this.searchQuery = '';
-//     this.page = 1;
-//     this.per_page = 10;
-//   }
-
-//     async fetchImages() {
-//     try {
-//   const url = `?key=${API_KEY}&q=${this.searchQuery}&page=${this.page}&per_page=${this.per_page}`;
-//   return await axios.get(url);
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-// }
+function notificationTotalHits(data) {
+  const countImages = data.hits.length;
+  console.log(countImages);
+  const maxImages = data.totalHits;
+  console.log(maxImages);
+  console.log(refs.cotainer.children.length);
+  if (countImages > maxImages) {
+    loadMoreBtn.hide();
+    return Notiflix.Notify.info(
+      `We're sorry, but you've reached the end of search results.`
+    );
+    // console.log(data);
+  }
+  //   else if (!data.total) {
+  //     loadMoreButton.hide();
+  //     return Notify.failure(
+  //       `Sorry, there are no images matching your search query: ${apiService.query}. Please try again.`
+  //     );
+  //   } else {
+  //     loadMoreButton.enable();
+  //     return Notify.success(`Hooray! We found ${countImages} images.`);
+  //   }
+}
+// return Notiflix.Notify.info(`Hooray! We found ${this.totalHits} images.`);

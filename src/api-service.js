@@ -8,7 +8,7 @@ class ImagesAPIService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    // this.per_page = 10;
+    this.per_page = 40;
   }
 
   async fetchImages() {
@@ -16,16 +16,16 @@ class ImagesAPIService {
 
     try {
       const url = `${BASE_URL}?key=${API_KEY}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true;`;
-      //   const response = await axios.get(url);
-      return fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          this.incrementPage();
+      const response = await axios.get(url);
+      // return fetch(url)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     this.incrementPage();
 
-          return data;
-          //   return data.foto;
-        });
-      //   return response;
+      //     return data;
+      //     //   return data.foto;
+      //   });
+      return response.data;
     } catch (error) {
       error;
     }

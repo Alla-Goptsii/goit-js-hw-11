@@ -1,8 +1,11 @@
-class LoadMoreButton {
+class LoadMoreBtn {
   constructor({ selector, hidden = false }) {
     this.refs = this.getRefs(selector);
 
-    hidden && this.hide();
+    // hidden && this.hide();
+    if (hidden) {
+      this.hide();
+    }
   }
 
   getRefs(selector) {
@@ -31,4 +34,4 @@ class LoadMoreButton {
   }
 }
 
-// export { LoadMoreButton };
+export { LoadMoreBtn };

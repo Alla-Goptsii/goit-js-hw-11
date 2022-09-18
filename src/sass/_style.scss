@@ -2,6 +2,29 @@ body {
   background-color: rgba(89, 86, 86, 0.249);
 }
 
+button {
+  font-size: 16px;
+  background-color: rgba(0, 0, 255, 0.208);
+  color: black;
+  cursor: pointer;
+  border: 2px solid rgba(0, 0, 255, 0.208);
+  border-radius: 4px;
+}
+button:hover {
+  background-color: rgb(51, 0, 255);
+  color: white;
+}
+.is-hidden {
+  display: none;
+}
+
+// button[disabled] {
+//   background-color: rgb(233, 224, 224);
+//   color: black;
+//   border: 2px solid rgb(233, 224, 224);
+//   cursor: default;
+// }
+
 #search-form {
   text-align: center;
   height: 45px;
@@ -32,10 +55,9 @@ img {
 //   justify-content: center;
 // }
 .load-more {
+  display: flex;
+
   margin-left: auto;
   margin-right: auto;
-  display: block;
-  background-color: rgba(0, 0, 255, 0.208);
-  border-color: rgba(0, 0, 255, 0.208);
-  border-radius: 4px;
+  margin-top: 20px;
 }
