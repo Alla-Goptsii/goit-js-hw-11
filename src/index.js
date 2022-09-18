@@ -1,8 +1,8 @@
 import { refs } from './refs.js';
-import Notiflix from 'notiflix';
 import { LoadMoreBtn } from './loadMore';
 import { galeryTmpl } from './galeruTmpl.js';
 import { ImagesAPIService } from './api-service.js';
+import Notiflix from 'notiflix';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 refs.searchForm.addEventListener('submit', onSearch);
@@ -35,13 +35,14 @@ function onSearch(event) {
   clearGaleryContainer();
   fetchImg();
 }
-
+// function
 function fetchImg() {
   loadMoreBtn.disabled();
   imagesAPIService.fetchImages().then(foto => {
     galeryMarkup(foto);
     loadMoreBtn.enable();
     // debugger;
+    lightbox.refresh();
     notificationTotalHits(foto);
   });
 }
@@ -55,25 +56,19 @@ function clearGaleryContainer() {
 
 function notificationTotalHits(data) {
   const countImages = data.hits.length;
-  console.log(countImages);
-  const maxImages = data.totalHits;
-  console.log(maxImages);
-  console.log(refs.cotainer.children.length);
-  if (countImages > maxImages) {
+  if (data.total === data.totalHits) {
     loadMoreBtn.hide();
     return Notiflix.Notify.info(
       `We're sorry, but you've reached the end of search results.`
     );
-    // console.log(data);
+  } else if (!data.total) {
+    loadMoreBtn.hide();
+    return Notiflix.Notify.failure(
+      `Sorry, there are no images matching your search query: ${imagesAPIService.query}. Please try again.`
+    );
+  } else {
+    loadMoreBtn.enable();
+    return Notiflix.Notify.success(`Hooray! We found ${countImages} images.`);
   }
-  //   else if (!data.total) {
-  //     loadMoreButton.hide();
-  //     return Notify.failure(
-  //       `Sorry, there are no images matching your search query: ${apiService.query}. Please try again.`
-  //     );
-  //   } else {
-  //     loadMoreButton.enable();
-  //     return Notify.success(`Hooray! We found ${countImages} images.`);
-  //   }
+  // console.log(data);
 }
-// return Notiflix.Notify.info(`Hooray! We found ${this.totalHits} images.`);
