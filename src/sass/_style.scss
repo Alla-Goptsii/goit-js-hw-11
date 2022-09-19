@@ -14,7 +14,7 @@ button:hover {
   background-color: rgb(51, 0, 255);
   color: white;
 }
-.is-hidden {
+button.is-hidden {
   display: none;
 }
 
@@ -50,10 +50,6 @@ img {
   display: flex;
   justify-content: space-around;
 }
-// button {
-//   text-align: center;
-//   justify-content: center;
-// }
 .load-more {
   display: flex;
 

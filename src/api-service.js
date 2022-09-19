@@ -18,6 +18,7 @@ class ImagesAPIService {
       const response = await axios.get(url);
       console.log(response);
       this.incrementPage();
+
       return response.data;
     } catch (error) {
       console.log(error);
