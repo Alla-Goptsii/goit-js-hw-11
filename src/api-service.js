@@ -22,6 +22,7 @@ class ImagesAPIService {
     } catch (error) {
       console.log(error);
     }
+    // НЕ ПРАЦЮЄ GET!!!!!!!!!!!!!!!!////////////
 
     // get query() {
     // return this.searchQuery;

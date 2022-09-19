@@ -35,7 +35,7 @@ function onSearch(event) {
   clearGaleryContainer();
   fetchImg();
 }
-// function
+
 function fetchImg() {
   loadMoreBtn.disabled();
   imagesAPIService.fetchImages().then(foto => {
