@@ -11,27 +11,15 @@ class ImagesAPIService {
   }
 
   async fetchImages() {
-    console.log(this);
-
     try {
       const url = `${BASE_URL}?key=${API_KEY}&q=${this.query}&page=${this.page}&per_page=${this.per_page}&lang=en,ua&image_type=photo&orientation=horizontal&safesearch=true;`;
       const response = await axios.get(url);
-      console.log(response);
       this.incrementPage();
 
       return response.data;
     } catch (error) {
       console.log(error);
     }
-    // НЕ ПРАЦЮЄ GET!!!!!!!!!!!!!!!!////////////
-
-    // get query() {
-    // return this.searchQuery;
-    //   }
-
-    //   set query(newQuery) {
-    //     this.searchQuery = newQuery;
-    //   }
   }
 
   incrementPage() {

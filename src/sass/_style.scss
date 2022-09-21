@@ -24,13 +24,6 @@ button.is-hidden {
   display: none;
 }
 
-// button[disabled] {
-//   background-color: rgb(233, 224, 224);
-//   color: black;
-//   border: 2px solid rgb(233, 224, 224);
-//   cursor: default;
-// }
-
 #search-form {
   text-align: center;
   height: 45px;
@@ -60,14 +53,14 @@ img {
 
 .hover-image-scale {
   display: inline-block;
-  overflow: hidden; /* Скрываем всё за контуром */
+  overflow: hidden;
 }
 .hover-image-scale img {
-  transition: 1s; /* Время эффекта */
+  transition: 1s;
   display: block;
 }
 .hover-image-scale img:hover {
-  transform: scale(1.2); /* Увеличиваем масштаб */
+  transform: scale(1.2);
 }
 
 .photo-card:hover {
