@@ -10,8 +10,8 @@ function galeryTmpl({ hits }) {
         comments,
         downloads,
       }) => {
-        return `<li class="card-item"><div class="photo-card">
-    <a class="gallery-item" href="${largeImageURL}"><img class="gallery-image" src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
+        return `<li class="card-item"><div class="photo-card hover-image-scale">
+    <a class="gallery-item" href="${largeImageURL}"><img class="gallery-image hover-image-scale" src="${webformatURL}" alt="${tags}" loading="lazy"/></a>
     <div class="info">
     <p class="info-item">
         <b>Likes: </b></br>${likes}

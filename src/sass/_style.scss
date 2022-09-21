@@ -1,18 +1,24 @@
 body {
-  background-color: rgba(89, 86, 86, 0.249);
+  background-color: rgba(97, 81, 111, 0.326);
+}
+
+input {
+  border-radius: 4px;
+  border: none;
 }
 
 button {
   font-size: 16px;
-  background-color: rgba(0, 0, 255, 0.208);
-  color: black;
+  background-color: rgb(134, 125, 141);
   cursor: pointer;
-  border: 2px solid rgba(0, 0, 255, 0.208);
+  color: white;
+
+  border: 3px solid rgba(23, 23, 29, 0.208);
   border-radius: 4px;
 }
 button:hover {
-  background-color: rgb(51, 0, 255);
-  color: white;
+  background-color: rgba(73, 65, 105, 0.588);
+  color: #000000;
 }
 button.is-hidden {
   display: none;
@@ -28,7 +34,7 @@ button.is-hidden {
 #search-form {
   text-align: center;
   height: 45px;
-  background-color: rgba(0, 0, 255, 0.208);
+  background-color: rgba(177, 109, 246, 0.297);
   padding: 10px;
 }
 .card-item {
@@ -49,6 +55,22 @@ img {
 .info {
   display: flex;
   justify-content: space-around;
+}
+
+.hover-image-scale {
+  display: inline-block;
+  overflow: hidden; /* Скрываем всё за контуром */
+}
+.hover-image-scale img {
+  transition: 1s; /* Время эффекта */
+  display: block;
+}
+.hover-image-scale img:hover {
+  transform: scale(1.2); /* Увеличиваем масштаб */
+}
+
+.photo-card:hover {
+  box-shadow: 10px 5px 5px gray;
 }
 .load-more {
   display: flex;
